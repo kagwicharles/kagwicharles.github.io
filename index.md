@@ -7,15 +7,12 @@ profile:
 published: true
 ---
 
-[Gradfolio](https://github.com/jitinnair1/gradfolio){:target="_blank"} is a responsive, dark-mode ready Jekyll theme designed keeping academia in mind. The easiest way to install the theme is to fork it using GitHub. Check the README file for [instructions](https://github.com/jitinnair1/gradfolio#installation){:target="_blank"}.
+Currently working as a Senior Mobile Applications developer at [Craft Silicon Ltd.](https://www.craftsilicon.com/){:target="_blank"}.
 
-If you want to use this space to write your biography here, edit the `index.md` file. You can put a picture in, too. Rename your picture to `profile.png` and put it in the `assets/images/` folder.
+Spearheaded development of banking applications for several banks based in Ethiopia such as [Tsedey Mobile Banking](https://play.google.com/store/apps/details?id=com.craftsilicon.tsedeybnk){:target="_blank"} and [VisionFund MFI](https://play.google.com/store/apps/details?id=com.craftsilicon.visionfundbnk){:target="_blank"}.
 
-The social-icons footer can be used to link profiles from GitHub, OrcID and ReasearchGate aprart form the usual Twitter, LinkedIn and Facebook. You can add your user ID in the `_config.yml` file to link your accounts.
-
-PS: If you liked the theme, do star it on GitHub!
+Previously at [Upande Ltd.](https://upande.com/){:target="_blank"} as a Lead Mobile Developer, I oversaw whole mobile application development process from design to implentation to achieve project success.
 
 ### Also, check out:
 
-- [autoCV](https://github.com/jitinnair1/autocv) - a LaTeX template that builds and deploys the CV using GitHub Actions, so you will always have a ready link for your latest CV
-- [Tail](https://github.com/jitinnair1/tail) - a minimal, quick-setup template for a blog
+- [My Resume](https://drive.google.com/file/d/1s7NGfGNtr10FdptlmWaHzFLqa4K0NrQ3/view?usp=sharing) - a PDF format of my resume
