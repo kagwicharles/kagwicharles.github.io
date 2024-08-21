@@ -13,6 +13,6 @@ Spearheaded development of banking applications for several banks based in Ethio
 
 Previously at [Upande Ltd.](https://upande.com/){:target="_blank"} as a Lead Mobile Developer, I oversaw whole mobile application development process from design to implentation achieving project success.
 
-### Also, check out:
+<!-- ### Also, check out:
 
-- [My Resume](https://drive.google.com/file/d/1s7NGfGNtr10FdptlmWaHzFLqa4K0NrQ3/view?usp=sharing) - a PDF format of my resume
+- [My Resume](https://drive.google.com/file/d/1s7NGfGNtr10FdptlmWaHzFLqa4K0NrQ3/view?usp=sharing) - a PDF format of my resume -->
