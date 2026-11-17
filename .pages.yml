@@ -1,0 +1,173 @@
+media:
+  input: public/img/uploads
+  output: /img/uploads
+
+content:
+  - name: articles
+    label: Articles
+    type: collection
+    path: content/blog
+    filename: "{title}.md"
+    exclude: ["blog.11tydata.js", "index.njk"]
+    view:
+      fields: [title, date]
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: draft
+        label: Draft (hidden from the live site)
+        type: boolean
+      - name: hideSidebar
+        label: Hide sidebar
+        type: boolean
+      - name: sidebarNote
+        label: Sidebar note
+        type: text
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: bliki
+    label: Bliki
+    type: collection
+    path: content/bliki
+    filename: "{title}.md"
+    exclude: ["bliki.json", "index.njk"]
+    view:
+      fields: [title, date]
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: date
+        label: Date
+        type: date
+        options:
+          format: yyyy-MM-dd
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: about
+    label: About page
+    type: file
+    path: content/about/index.md
+    fields:
+      - name: layout
+        label: Layout (leave as is)
+        type: string
+      - name: title
+        label: Title
+        type: string
+      - name: hideSidebar
+        label: Hide sidebar
+        type: boolean
+      - name: eleventyNavigation
+        label: Menu entry
+        type: object
+        fields:
+          - name: key
+            label: Menu label
+            type: string
+          - name: order
+            label: Menu order
+            type: number
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: sidebar
+    label: Sidebar
+    type: file
+    path: _data/sidebar.json
+    format: json
+    fields:
+      - name: about
+        label: About blurb
+        type: text
+      - name: notes
+        label: Notes (links allowed as HTML)
+        type: string
+        list: true
+      - name: topics
+        label: Topics (tag names)
+        type: string
+        list: true
+
+  - name: site
+    label: Site settings
+    type: file
+    path: _data/metadata.json
+    format: json
+    fields:
+      - name: title
+        label: Site name
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: avatar
+        label: Header photo path
+        type: string
+      - name: url
+        label: Site URL
+        type: string
+      - name: language
+        label: Language code
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: author
+        label: Author
+        type: object
+        fields:
+          - name: name
+            label: Name
+            type: string
+          - name: email
+            label: Email
+            type: string
+          - name: url
+            label: About page URL
+            type: string
+      - name: socials
+        label: Social links
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Name
+            type: string
+          - name: icon
+            label: Icon (github, linkedin or x)
+            type: string
+          - name: url
+            label: URL
+            type: string

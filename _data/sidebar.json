@@ -1,0 +1,10 @@
+{
+	"about": "Notes on building reliable software: systems, data and the trade-offs between them.",
+	"notes": [
+		"Just published: <a href=\"/blog/idempotency-in-payment-apis/\">Idempotency in Payment APIs</a>.",
+		"Reading list: <a href=\"https://martinfowler.com/\">martinfowler.com</a> for architecture patterns and refactoring.",
+		"Tip: a retry is only safe if repeating the operation gives the same result as doing it once."
+	],
+	"topics": ["architecture", "fintech", "data-engineering", "career"],
+	"links": []
+}
