@@ -1,11 +1,22 @@
 export default {
-	title: "Eleventy Base Blog v9",
-	url: "https://example.com/",
+	title: "Theuri Kagwi",
+	tagline: "Notes on software, data and architecture", // placeholder, change freely
+	avatar: "/img/theuri.png",
+	url: "https://kagwicharles.github.io/", // project site: "https://kagwicharles.github.io/REPO-NAME/"
 	language: "en",
-	description: "I am writing about my experiences as a naval navel-gazer.",
+	description: "Writing about software engineering, data and architecture.",
 	author: {
-		name: "Your Name Here",
-		email: "youremailaddress@example.com",
-		url: "https://example.com/about-me/"
-	}
-}
+		name: "Theuri Kagwi",
+		email: "ckagwi8@gmail.com",
+		url: "https://kagwicharles.github.io/about/",
+	},
+	socials: [
+		{
+			name: "LinkedIn",
+			icon: "linkedin",
+			url: "https://www.linkedin.com/in/theurikagwi/",
+		},
+		{ name: "GitHub", icon: "github", url: "https://github.com/kagwicharles" },
+		{ name: "X", icon: "x", url: "https://x.com/theurikagwi" },
+	],
+};

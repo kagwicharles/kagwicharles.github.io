@@ -1,33 +1,49 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+name: Deploy to GitHub Pages
 
-version: 2
-updates:
-  - package-ecosystem: npm
-    directory: "/"
-    schedule:
-      interval: monthly
-    cooldown:
-      default-days: 7
-    labels:
-      - "dependency-updates"
-    versioning-strategy: increase
-    allow:
-      - dependency-type: all
-    groups:
-      npm:
-        patterns:
-          - "*"
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-#  - package-ecosystem: github-actions
-#    directory: ".github/workflows/"
-#    schedule:
-#      interval: monthly
-#    cooldown:
-#      default-days: 7
-#    groups:
-#      github-actions:
-#        patterns:
-#          - "*"
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # User site (repo named kagwicharles.github.io): use this line
+      - run: npx @11ty/eleventy
+
+      # Project site: comment out the line above and use this one instead,
+      # replacing REPO-NAME with your repo's name
+      # - run: npx @11ty/eleventy --pathprefix=/REPO-NAME/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

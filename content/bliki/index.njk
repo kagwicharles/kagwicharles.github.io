@@ -1,0 +1,9 @@
+---
+layout: layouts/home.njk
+title: Bliki
+eleventyNavigation:
+  key: Bliki
+  order: 2
+---
+{% set postslist = collections.bliki %}
+{% include "postslist.njk" %}
