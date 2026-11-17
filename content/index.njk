@@ -1,29 +1,36 @@
----js
-const eleventyNavigation = {
-	key: "Home",
-	order: 1
-};
-
-const numberOfLatestPostsToShow = 3;
 ---
-{% set postsCount = collections.posts | length %}
-{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
+layout: layouts/home.njk
+eleventyNavigation:
+  key: Home
+  order: 1
+---
+<section class="hero">
+	<h1>Software engineering is changing shape.</h1>
+	<p class="hero-lead">
+		Writing code has never been cheaper. AI assistants can draft functions, tests and whole features in minutes, which moves the hard part of the job somewhere else: deciding what to build, how the pieces fit together, and how to keep it running when real users and real money are involved.
+	</p>
+	<p class="hero-lead">
+		My bet is that the next few years reward engineers who can reason about systems, data and trade-offs, not just produce syntax. When generating code is easy, judgement, architecture and reliability become the scarce skills, and reviewing what gets built becomes the real bottleneck.
+	</p>
+	<p class="hero-lead">
+		This site is where I think that through, in longer articles and shorter notes.
+	</p>
+	<p class="hero-actions">
+		<a class="button" href="/blog/">Read the articles</a>
+		<a class="button button-secondary" href="/about/">About me</a>
+	</p>
+</section>
 
-{% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
-{% set postslistCounter = postsCount %}
+<div class="section-head">
+	<h2>Latest articles</h2>
+	<a href="/blog/">All articles &rarr;</a>
+</div>
+{% set postslist = collections.posts | head(-3) %}
 {% include "postslist.njk" %}
 
-{% set morePosts = postsCount - numberOfLatestPostsToShow %}
-{% if morePosts > 0 %}
-<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="blog.njk">the archive</a>.</p>
-{% endif %}
-
-{# List every content page in the project #}
-{#
-<ul>
-	{%- for entry in collections.all %}
-	<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
-	{%- endfor %}
-</ul>
-#}
+<div class="section-head">
+	<h2>From the bliki</h2>
+	<a href="/bliki/">All notes &rarr;</a>
+</div>
+{% set postslist = collections.bliki | head(-3) %}
+{% include "postslist.njk" %}
