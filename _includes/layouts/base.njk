@@ -24,7 +24,7 @@
 		{#- Add the contents of a file to the bundle #}
 		<style>{% include "css/index.css" %}</style>
 
-		{#- Layout, header/footer gradient, sidebar, avatar and social styles (added to the same bundle) #}
+		{#- Layout, header/footer gradient, mobile menu, sidebar, avatar and social styles (added to the same bundle) #}
 		<style>
 			:root {
 				/* Shared brand gradient: two soft glows over a navy-to-blue base */
@@ -107,6 +107,7 @@
 
 			/* Header: gradient, white text, no border */
 			header {
+				position: relative;
 				padding: .9em 1em;
 				background: var(--brand-gradient);
 				border-bottom: 0;
@@ -134,6 +135,74 @@
 			header .nav a[href][aria-current="page"] {
 				color: #fff;
 				border-bottom-color: #fff;
+			}
+
+			/* Hamburger menu: pure CSS (hidden checkbox + label), no JavaScript */
+			.nav-check {
+				position: absolute;
+				opacity: 0;
+				width: 1px;
+				height: 1px;
+				pointer-events: none;
+			}
+			.nav-toggle {
+				display: none;
+				align-items: center;
+				justify-content: center;
+				width: 2.4rem;
+				height: 2.4rem;
+				border: 1px solid rgba(255, 255, 255, .4);
+				color: #fff;
+				cursor: pointer;
+			}
+			.nav-toggle:hover {
+				background: rgba(255, 255, 255, .15);
+				border-color: #fff;
+			}
+			.nav-check:focus-visible + .nav-toggle {
+				outline: 2px solid #fff;
+				outline-offset: 2px;
+			}
+			.nav-toggle svg {
+				width: 1.3rem;
+				height: 1.3rem;
+				display: block;
+			}
+			.nav-toggle .icon-close {
+				display: none;
+			}
+			.nav-check:checked + .nav-toggle .icon-menu {
+				display: none;
+			}
+			.nav-check:checked + .nav-toggle .icon-close {
+				display: block;
+			}
+
+			/* Small screens: show the button, hide the nav until the box is checked */
+			@media (max-width: 42em) {
+				.nav-toggle {
+					display: inline-flex;
+				}
+				header nav {
+					display: none;
+					flex-basis: 100%;
+				}
+				.nav-check:checked ~ nav {
+					display: block;
+				}
+				header .nav {
+					flex-direction: column;
+					gap: 0;
+					border-top: 1px solid rgba(255, 255, 255, .2);
+				}
+				header .nav-item a[href] {
+					padding: .7em 0;
+					border-bottom: 1px solid rgba(255, 255, 255, .12);
+				}
+				header .nav a[href][aria-current="page"] {
+					font-weight: 700;
+					border-bottom-color: #fff;
+				}
 			}
 
 			/* Footer: same gradient, compact padding */
@@ -227,8 +296,14 @@
 				</a>
 			</div>
 
+			<input type="checkbox" id="nav-check" class="nav-check" aria-label="Toggle menu">
+			<label for="nav-check" class="nav-toggle">
+				<svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+				<svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+			</label>
+
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
-			<nav>
+			<nav id="site-nav">
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav">
 				{%- for entry in collections.all | eleventyNavigation %}
