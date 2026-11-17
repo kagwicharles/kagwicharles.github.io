@@ -5,6 +5,7 @@ date: 2026-11-10
 tags:
   - architecture
   - fintech
+sidebarNote: 'Related notes: <a href="/bliki/idempotency-key/">Idempotency Key</a> and <a href="/bliki/outbox-pattern/">Outbox Pattern</a>.'
 ---
 
 Networks fail. A client sends a payment request, the connection drops, and it has no idea whether the money moved. The natural reaction is to retry, and that is exactly where double charges come from.

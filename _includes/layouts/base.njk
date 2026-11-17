@@ -24,20 +24,123 @@
 		{#- Add the contents of a file to the bundle #}
 		<style>{% include "css/index.css" %}</style>
 
-		{#- Header/footer backgrounds, avatar and social styles (added to the same bundle) #}
+		{#- Layout, header/footer gradient, sidebar, avatar and social styles (added to the same bundle) #}
 		<style>
-			/* Header: soft gradient inside the column, compact padding */
-			header {
-				padding: .6em 1em;
-				background: linear-gradient(135deg, #e3ecff 0%, #f5f8ff 55%, #ffffff 100%);
-				border-bottom: 3px solid var(--color-accent);
+			:root {
+				/* Shared brand gradient: two soft glows over a navy-to-blue base */
+				--brand-gradient:
+					radial-gradient(circle at 12% 0%, rgba(56, 189, 248, .28), transparent 45%),
+					radial-gradient(circle at 92% 100%, rgba(99, 102, 241, .35), transparent 50%),
+					linear-gradient(120deg, #0b1437 0%, #1e3a8a 55%, #1d4ed8 100%);
 			}
 
-			/* Footer: deep navy gradient inside the column, compact padding */
+			/* Wider page to make room for the sidebar */
+			body {
+				max-width: 64em;
+			}
+
+			/* Main column + sidebar */
+			.layout {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) 16em;
+				gap: 0 1rem;
+				align-items: start;
+			}
+			.layout-single {
+				grid-template-columns: minmax(0, 1fr);
+			}
+
+			.sidebar {
+				margin: 1.5rem 1rem 1.5rem 0;
+				padding: 1rem 1.1rem;
+				background: var(--color-surface);
+				border: 1px solid var(--color-rule);
+				font-size: .95em;
+			}
+			.sidebar section + section {
+				margin-top: 1.5rem;
+				padding-top: 1.25rem;
+				border-top: 1px solid var(--color-rule);
+			}
+			.sidebar h2 {
+				margin: 0 0 .6em;
+				font-size: .8rem;
+				font-weight: 700;
+				letter-spacing: .07em;
+				text-transform: uppercase;
+				color: var(--color-muted);
+			}
+			.sidebar p {
+				margin: 0;
+				line-height: 1.6;
+			}
+			.sidebar ul {
+				margin: 0;
+				padding-left: 1.1em;
+			}
+			.sidebar li {
+				line-height: 1.55;
+			}
+			.sidebar li + li {
+				margin-top: .5em;
+			}
+			.sidebar-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: .4em;
+				list-style: none;
+				padding: 0;
+			}
+			.sidebar-tags li,
+			.sidebar-tags li + li {
+				margin: 0;
+			}
+
+			@media (max-width: 52em) {
+				.layout {
+					grid-template-columns: minmax(0, 1fr);
+				}
+				.sidebar {
+					margin: 0 1rem 1.5rem;
+				}
+			}
+
+			/* Header: gradient, white text, no border */
+			header {
+				padding: .9em 1em;
+				background: var(--brand-gradient);
+				border-bottom: 0;
+			}
+			header .home-link,
+			header .home-link:link:not(:hover),
+			header .home-link:visited:not(:hover) {
+				color: #fff;
+			}
+			header .home-link:hover {
+				color: #fff;
+				text-decoration: underline;
+			}
+			header .tagline {
+				color: rgba(255, 255, 255, .85);
+			}
+			header .nav-item a[href],
+			header .nav-item a[href]:visited {
+				color: rgba(255, 255, 255, .9);
+			}
+			header .nav-item a[href]:hover {
+				color: #fff;
+				border-bottom-color: rgba(255, 255, 255, .6);
+			}
+			header .nav a[href][aria-current="page"] {
+				color: #fff;
+				border-bottom-color: #fff;
+			}
+
+			/* Footer: same gradient, compact padding */
 			footer {
 				margin-top: 2rem;
 				padding: 1rem;
-				background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+				background: var(--brand-gradient);
 				border-top: 0;
 				color: #cbd5e1;
 			}
@@ -135,11 +238,64 @@
 			</nav>
 		</header>
 
-		<main id="main">
-			<heading-anchors>
-				{{ content | safe }}
-			</heading-anchors>
-		</main>
+		<div class="layout{% if hideSidebar %} layout-single{% endif %}">
+			<main id="main">
+				<heading-anchors>
+					{{ content | safe }}
+				</heading-anchors>
+			</main>
+
+			{%- if not hideSidebar %}
+			<aside class="sidebar" aria-label="Sidebar">
+				{%- if sidebarNote %}
+				<section>
+					<h2>Note</h2>
+					<p>{{ sidebarNote | safe }}</p>
+				</section>
+				{%- endif %}
+
+				{%- if sidebar.about %}
+				<section>
+					<h2>About</h2>
+					<p>{{ sidebar.about | safe }}</p>
+				</section>
+				{%- endif %}
+
+				{%- if sidebar.notes and sidebar.notes.length %}
+				<section>
+					<h2>Notes</h2>
+					<ul>
+						{%- for note in sidebar.notes %}
+						<li>{{ note | safe }}</li>
+						{%- endfor %}
+					</ul>
+				</section>
+				{%- endif %}
+
+				{%- if sidebar.topics and sidebar.topics.length %}
+				<section>
+					<h2>Topics</h2>
+					<ul class="sidebar-tags">
+						{%- for tag in sidebar.topics %}
+						<li><a class="post-tag" href="/tags/{{ tag | slugify }}/">{{ tag }}</a></li>
+						{%- endfor %}
+					</ul>
+				</section>
+				{%- endif %}
+
+				{%- if sidebar.links and sidebar.links.length %}
+				<section>
+					<h2>Links</h2>
+					<ul>
+						{%- for link in sidebar.links %}
+						<li><a href="{{ link.url }}">{{ link.name }}</a></li>
+						{%- endfor %}
+					</ul>
+				</section>
+				{%- endif %}
+			</aside>
+			{%- endif %}
+		</div>
 
 		<footer>
 			<ul class="socials">
