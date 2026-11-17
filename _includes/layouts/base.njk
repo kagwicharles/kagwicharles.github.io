@@ -32,6 +32,9 @@
 					radial-gradient(circle at 12% 0%, rgba(56, 189, 248, .28), transparent 45%),
 					radial-gradient(circle at 92% 100%, rgba(99, 102, 241, .35), transparent 50%),
 					linear-gradient(120deg, #0b1437 0%, #1e3a8a 55%, #1d4ed8 100%);
+
+				/* Header hover color: light sky blue, readable on the navy */
+				--header-hover: #7dd3fc;
 			}
 
 			/* Wider page to make room for the sidebar */
@@ -105,7 +108,7 @@
 				}
 			}
 
-			/* Header: gradient, white text, no border */
+			/* Header: gradient, white text, no border. Hover only changes text color. */
 			header {
 				position: relative;
 				padding: .9em 1em;
@@ -117,9 +120,14 @@
 			header .home-link:visited:not(:hover) {
 				color: #fff;
 			}
-			header .home-link:hover {
-				color: #fff;
-				text-decoration: underline;
+			header .home-link:hover,
+			header .home-link:link:hover,
+			header .home-link:visited:hover {
+				color: var(--header-hover);
+				text-decoration: none;
+			}
+			header .home-link:hover .tagline {
+				color: var(--header-hover);
 			}
 			header .tagline {
 				color: rgba(255, 255, 255, .85);
@@ -129,12 +137,14 @@
 				color: rgba(255, 255, 255, .9);
 			}
 			header .nav-item a[href]:hover {
-				color: #fff;
-				border-bottom-color: rgba(255, 255, 255, .6);
+				color: var(--header-hover);
 			}
 			header .nav a[href][aria-current="page"] {
 				color: #fff;
 				border-bottom-color: #fff;
+			}
+			header .nav a[href][aria-current="page"]:hover {
+				color: var(--header-hover);
 			}
 
 			/* Hamburger menu: pure CSS (hidden checkbox + label), no JavaScript */
@@ -154,10 +164,10 @@
 				border: 1px solid rgba(255, 255, 255, .4);
 				color: #fff;
 				cursor: pointer;
+				transition: color .15s;
 			}
 			.nav-toggle:hover {
-				background: rgba(255, 255, 255, .15);
-				border-color: #fff;
+				color: var(--header-hover);
 			}
 			.nav-check:focus-visible + .nav-toggle {
 				outline: 2px solid #fff;
